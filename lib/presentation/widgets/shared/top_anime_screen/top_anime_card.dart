@@ -3,8 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hetro_anime/consts/my_colors.dart';
 
 class TopAnimeCard extends StatelessWidget {
-  const TopAnimeCard({super.key,required this.image,required this.order});
-  final String image;
+  const TopAnimeCard({super.key, required this.image, required this.order});
+  final String? image;
   final int order;
 
   @override
@@ -12,11 +12,18 @@ class TopAnimeCard extends StatelessWidget {
     return Stack(
       alignment: AlignmentGeometry.bottomLeft,
       children: [
-        Container(
-          height: 292,
-          width: 180,
+        Padding(
           padding: EdgeInsets.only(top: 30, left: 20, right: 10, bottom: 50),
-          child: Image.asset(image),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: image == null
+                ? Image.asset("assets/images/Loading.gif")
+                : FadeInImage.assetNetwork(
+                    fit: BoxFit.cover,
+                    image: "https://image.tmdb.org/t/p/w500$image",
+                    placeholder: "assets/images/Loading.gif",
+                  ),
+          ),
         ),
         Positioned(
           left: 18,
