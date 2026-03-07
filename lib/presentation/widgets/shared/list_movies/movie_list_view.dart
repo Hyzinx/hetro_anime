@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hetro_anime/business/cubit/movie_cubit.dart';
+import 'package:hetro_anime/business/cubit/movie_state.dart';
 import 'package:hetro_anime/data/models/movie.dart';
 import 'package:hetro_anime/presentation/widgets/shared/list_movies/movie_card.dart';
 
@@ -22,7 +23,7 @@ class _MovieListViewState extends State<MovieListView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MovieCubit, MovieState>(
+    return BlocBuilder<MovieCubit, MovieState<dynamic>>(
       builder: (context, state) {
         if (state is LoadingMoviesList) {
           listMovies = state.currentList;

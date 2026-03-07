@@ -1,40 +1,83 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hetro_anime/business/cubit/movie_state.dart';
+import 'package:hetro_anime/data/exception_handeler/api_result.dart';
+import 'package:hetro_anime/data/exception_handeler/network_exception.dart';
 import 'package:hetro_anime/data/models/movie.dart';
 import 'package:hetro_anime/data/repositories/movie_repository.dart';
 
-part 'movie_state.dart';
-
 class MovieCubit extends Cubit<MovieState> {
   MovieCubit(this.movieRepository)
-    : super(LoadingMoviesList(topRatedMovies: [], currentList: []));
+    : super(LoadingMoviesList(currentList: [], topRatedMovies: []));
   MovieRepository movieRepository;
 
-  void loadPlayMoviesTopRated() async {
-    final List<Movie> topRatedList = await movieRepository
-        .getAllMoviesTopRated();
-    emit((state as LoadingMoviesList).copyWith(topRatedMovies: topRatedList));
+  void loadAllMoviesTopRated() async {
+    final data = await movieRepository.getAllMoviesTopRated();
+
+    data.when(
+      success: (List<Movie> moviesTopRated) {
+        emit(
+          (state as LoadingMoviesList).copyWith(topRatedMovies: moviesTopRated),
+        );
+      },
+      failure: (NetworkExceptions networkExceptions) {
+        emit(MovieState.error(networkExceptions));
+      },
+    );
   }
 
   void getAllMoviesTopRated() async {
-    final List<Movie> topRatedList = await movieRepository
-        .getAllMoviesTopRated();
-    emit((state as LoadingMoviesList).copyWith(currentList: topRatedList));
+    final data = await movieRepository.getAllMoviesTopRated();
+
+    data.when(
+      success: (List<Movie> moviesTopRated) {
+        emit(
+          (state as LoadingMoviesList).copyWith(currentList: moviesTopRated),
+        );
+      },
+      failure: (NetworkExceptions networkExceptions) {
+        emit(MovieState.error(networkExceptions));
+      },
+    );
   }
 
   void getAllMoviesPlayNow() async {
-    final List<Movie> playNowList = await movieRepository.getAllMoviesPlayNow();
-    emit((state as LoadingMoviesList).copyWith(currentList: playNowList));
+    final data = await movieRepository.getAllMoviesPlayNow();
+
+    data.when(
+      success: (List<Movie> moviesPlayNow) {
+        emit((state as LoadingMoviesList).copyWith(currentList: moviesPlayNow));
+      },
+      failure: (NetworkExceptions networkExceptions) {
+        emit(MovieState.error(networkExceptions));
+      },
+    );
   }
 
   void getAllMoviesUpcoming() async {
-    final List<Movie> upcomingList = await movieRepository
-        .getAllMoviesUpcoming();
-    emit((state as LoadingMoviesList).copyWith(currentList: upcomingList));
+    final data = await movieRepository.getAllMoviesUpcoming();
+
+    data.when(
+      success: (List<Movie> moviesupcoming) {
+        emit(
+          (state as LoadingMoviesList).copyWith(currentList: moviesupcoming),
+        );
+      },
+      failure: (NetworkExceptions networkExceptions) {
+        emit(MovieState.error(networkExceptions));
+      },
+    );
   }
 
   void getAllMoviesPopular() async {
-    final List<Movie> popularList = await movieRepository.getAllMoviesPopular();
-    emit((state as LoadingMoviesList).copyWith(currentList: popularList));
+    final data = await movieRepository.getAllMoviesPopular();
+
+    data.when(
+      success: (List<Movie> moviesPopular) {
+        emit((state as LoadingMoviesList).copyWith(currentList: moviesPopular));
+      },
+      failure: (NetworkExceptions networkExceptions) {
+        emit(MovieState.error(networkExceptions));
+      },
+    );
   }
 }

@@ -15,3 +15,18 @@ class BodyLargTheme extends StatelessWidget {
     );
   }
 }
+class BodyMideTheme extends StatelessWidget {
+  const BodyMideTheme({super.key, required this.text});
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: GoogleFonts.poppins(
+        textStyle: Theme.of(context).textTheme.bodyMedium,
+      ),
+    );
+  }
+}
+

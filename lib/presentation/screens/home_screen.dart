@@ -41,14 +41,16 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomMenueMovie(),
-      appBar: AppBar(title: BodyLargTheme(text: "What do you want to watch?")),
+      appBar: AppBar(title: BodyLargTheme(text: "Hetro Movie")),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 15),
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SearchWidget(),
+              // SearchWidget(),
+               BodyMideTheme(text: "Top Rated Movies"),
               TopAnime(),
               ListCategory(onChangeCatigory: changeMovie),
               MovieListView(),
