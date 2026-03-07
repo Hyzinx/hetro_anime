@@ -12,4 +12,25 @@ class MovieRepository {
     );
     return response.results!.map((movie) => Movie.fromJson(movie)).toList();
   }
+
+  Future<List<Movie>> getAllMoviesUpcoming() async {
+    final ResponseResult response = await movieApi.getMoviesUpcoming(
+      "Bearer $apiKey",
+    );
+    return response.results!.map((movie) => Movie.fromJson(movie)).toList();
+  }
+
+  Future<List<Movie>> getAllMoviesTopRated() async {
+    final ResponseResult response = await movieApi.getMoviesTopRated(
+      "Bearer $apiKey",
+    );
+    return response.results!.map((movie) => Movie.fromJson(movie)).toList();
+  }
+
+  Future<List<Movie>> getAllMoviesPopular() async {
+    final ResponseResult response = await movieApi.getMoviesPopular(
+      "Bearer $apiKey",
+    );
+    return response.results!.map((movie) => Movie.fromJson(movie)).toList();
+  }
 }

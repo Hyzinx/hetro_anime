@@ -6,6 +6,7 @@ class MyColors {
 
   static Color mainBorderColore = Color(0xff0296E5);
   static Color secondaryBorderColore = Color(0xff67686D);
+  static Color searchColore = Color(0xff3A3F47);
   
   static Color fontColors = Colors.white;
   static Color secondaryFontColors = Color(0xff92929D);

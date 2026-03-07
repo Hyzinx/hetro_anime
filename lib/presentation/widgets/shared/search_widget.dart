@@ -9,16 +9,21 @@ class SearchWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: MyColors.secondaryColore,
-        borderRadius: BorderRadiusGeometry.all(Radius.circular(18)),
+        borderRadius: BorderRadius.circular(20),
+        color: MyColors.searchColore
       ),
-      margin: EdgeInsets.symmetric(horizontal: 20),
+      padding: EdgeInsets.symmetric(horizontal: 20,vertical: 3),
       child: Row(
         children: [
           Expanded(
             child: TextField(
               decoration: InputDecoration(
-                hint: Text("Search",style: GoogleFonts.poppins(color: MyColors.secondaryBorderColore),),
+                hint: Text(
+                  "Search",
+                  style: GoogleFonts.poppins(
+                    color: MyColors.secondaryBorderColore,
+                  ),
+                ),
                 contentPadding: EdgeInsets.symmetric(horizontal: 20),
                 border: InputBorder.none,
               ),

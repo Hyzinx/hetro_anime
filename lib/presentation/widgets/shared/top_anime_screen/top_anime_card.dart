@@ -13,7 +13,7 @@ class TopAnimeCard extends StatelessWidget {
       alignment: AlignmentGeometry.bottomLeft,
       children: [
         Padding(
-          padding: EdgeInsets.only(top: 30, left: 20, right: 10, bottom: 50),
+          padding: EdgeInsets.only(top: 30, left: 15, right: 10, bottom: 50),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: image == null

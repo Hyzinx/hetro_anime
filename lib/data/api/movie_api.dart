@@ -13,4 +13,16 @@ abstract class MovieApi {
   Future<ResponseResult> getMoviesPlayNow(
     @Header("Authorization") String authKey,
   );
+  @GET('upcoming')
+  Future<ResponseResult> getMoviesUpcoming(
+    @Header("Authorization") String authKey,
+  );
+  @GET('top_rated')
+  Future<ResponseResult> getMoviesTopRated(
+    @Header("Authorization") String authKey,
+  );
+  @GET('popular')
+  Future<ResponseResult> getMoviesPopular(
+    @Header("Authorization") String authKey,
+  );
 }

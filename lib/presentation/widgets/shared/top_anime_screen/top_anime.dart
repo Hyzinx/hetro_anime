@@ -13,27 +13,28 @@ class TopAnime extends StatefulWidget {
 }
 
 class _TopAnimeState extends State<TopAnime> {
-
-  List<Movie>moviePlayNow=[];
+  List<Movie> moviesTopRated = [];
 
   @override
   void initState() {
     super.initState();
-    context.read<MovieCubit>().getAllMoviesPlayNow();
+    BlocProvider.of<MovieCubit>(context).loadPlayMoviesTopRated();
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MovieCubit, MovieState>(
       builder: (context, state) {
-        if (state is LoadPlayNowMovies) {
-          moviePlayNow=state.playNowMovies;
-          return Expanded(
+        if (state is LoadingMoviesList) {
+          moviesTopRated = state.topRatedMovies;
+          return SizedBox(
+            height: 300,
             child: ListView.builder(
+              shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              itemCount: moviePlayNow.length,
+              itemCount: moviesTopRated.length,
               itemBuilder: (context, index) => TopAnimeCard(
-                image:  moviePlayNow[index].posterPath,
+                image: moviesTopRated[index].posterPath,
                 order: index + 1,
                 key: ValueKey(index),
               ),
@@ -41,7 +42,7 @@ class _TopAnimeState extends State<TopAnime> {
           );
         } else {
           return Container(
-            padding: EdgeInsets.symmetric(horizontal: 30),
+            height: 30,
             child: CircularProgressIndicator(color: MyColors.ratingColors),
           );
         }
