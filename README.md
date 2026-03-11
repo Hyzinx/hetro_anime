@@ -2,7 +2,11 @@
 
 # 🎬 Hetro Movie
 
-https://github.com/Hyzinx/hetro_movie/blob/master/hetor_movie_demo.mp4
+
+https://github.com/user-attachments/assets/b21146fa-30c7-4881-a4f3-e8a69903fe9e
+
+
+
 
 ### A Modern Movie Discovery App Built with Flutter
 
