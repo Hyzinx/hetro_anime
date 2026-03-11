@@ -2,6 +2,8 @@ const baseUrl = "https://api.themoviedb.org/3/";
 const baseUrlMovies = "https://api.themoviedb.org/3/movie/";
 const baseImageUrl = "https://image.tmdb.org/t/p/w500/";
 
+const genreListUrl = "https://api.themoviedb.org/3/genre/movie/list";
+
 const mainScreenRoute = "/";
 const searchScreenRoute = "search";
 const detailsMovieScreenRoute = "detailsMovie";

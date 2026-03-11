@@ -3,6 +3,7 @@ import 'package:hetro_anime/business/states/movie_state.dart';
 import 'package:hetro_anime/data/exception_handeler/api_result.dart';
 import 'package:hetro_anime/data/exception_handeler/network_exception.dart';
 import 'package:hetro_anime/data/models/cast.dart';
+import 'package:hetro_anime/data/models/genre.dart';
 import 'package:hetro_anime/data/models/movie.dart';
 import 'package:hetro_anime/data/models/review.dart';
 import 'package:hetro_anime/data/repositories/credit_repository.dart';
@@ -11,23 +12,18 @@ import 'package:hetro_anime/data/repositories/review_repository.dart';
 
 class MovieCubit extends Cubit<MovieState> {
   MovieCubit(this.movieRepository, this.creditRepository, this.reviewRepository)
-    : super(
-        LoadingMoviesList(
-          moviesPlayNow: [],
-          moviesPopular: [],
-          moviesUpcoming: [],
-          topRatedMovies: [],
-        ),
-      );
+    : super(MovieInitial());
   final ReviewRepository reviewRepository;
   final CreditRepository creditRepository;
   final MovieRepository movieRepository;
+
 
   void getAllMovies() async {
     final dataTopRated = await movieRepository.getAllMoviesTopRated();
     final dataUpcoming = await movieRepository.getAllMoviesUpcoming();
     final dataPlayNow = await movieRepository.getAllMoviesPlayNow();
     final dataPopular = await movieRepository.getAllMoviesPopular();
+    final dataGenre = await movieRepository.getAllGenreList();
 
     dataTopRated.when(
       success: (List<Movie> moviesTopRated) {
@@ -37,13 +33,21 @@ class MovieCubit extends Cubit<MovieState> {
               success: (List<Movie> moviesUpcoming) {
                 dataPopular.when(
                   success: (List<Movie> moviesPopular) {
-                    emit(
-                      LoadingMoviesList(
-                        moviesPlayNow: moviesPlayNow,
-                        moviesPopular: moviesPopular,
-                        moviesUpcoming: moviesUpcoming,
-                        topRatedMovies: moviesTopRated,
-                      ),
+                    dataGenre.when(
+                      success: (List<Genre> genres) {
+                        emit(
+                          LoadingMoviesList(
+                            moviesPlayNow: moviesPlayNow,
+                            moviesPopular: moviesPopular,
+                            moviesUpcoming: moviesUpcoming,
+                            topRatedMovies: moviesTopRated,
+                            listGenre: genres,
+                          ),
+                        );
+                      },
+                      failure: (NetworkExceptions networkExceptions) {
+                        emit(ErrorLoadingData(networkExceptions));
+                      },
                     );
                   },
                   failure: (NetworkExceptions networkExceptions) {
@@ -104,6 +108,7 @@ class MovieCubit extends Cubit<MovieState> {
 
   void searchForMovie(String quryMovie) async {
     final data = await movieRepository.getMovieSearched(quryMovie);
+
     data.when(
       success: (List<Movie> movies) {
         emit(SearchMovieList(movies: movies));

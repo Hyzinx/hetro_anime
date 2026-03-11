@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:hetro_anime/consts/strings.dart';
+import 'package:hetro_anime/data/models/genre.dart';
 import 'package:hetro_anime/data/models/movie.dart';
 import 'package:hetro_anime/data/models/response_result.dart';
 import 'package:retrofit/retrofit.dart';
@@ -35,6 +36,10 @@ abstract class MovieApi {
   @GET('search/movie')
   Future<ResponseResult> getMovieSearched(
     @Query('query') String movieQury,
+    @Header("Authorization") String authKey,
+  );
+  @GET("genre/movie/list")
+  Future<Map<String,List<Genre>>> getAllGenreList(
     @Header("Authorization") String authKey,
   );
 }

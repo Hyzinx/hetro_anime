@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hetro_anime/data/exception_handeler/network_exception.dart';
 import 'package:hetro_anime/data/models/cast.dart';
+import 'package:hetro_anime/data/models/genre.dart';
 import 'package:hetro_anime/data/models/movie.dart';
 import 'package:hetro_anime/data/models/review.dart';
 
@@ -14,12 +15,14 @@ final class LoadingMoviesList extends MovieState {
   final List<Movie> moviesPlayNow;
   final List<Movie> moviesUpcoming;
   final List<Movie> moviesPopular;
+  final List<Genre> listGenre;
 
   LoadingMoviesList({
     required this.topRatedMovies,
     required this.moviesPlayNow,
     required this.moviesUpcoming,
     required this.moviesPopular,
+    required this.listGenre,
   });
 
   LoadingMoviesList copyWith({
@@ -27,12 +30,14 @@ final class LoadingMoviesList extends MovieState {
     List<Movie>? moviesPlayNow,
     List<Movie>? moviesUpcoming,
     List<Movie>? moviesPopular,
+    List<Genre>? listGenre,
   }) {
     return LoadingMoviesList(
       topRatedMovies: topRatedMovies ?? this.topRatedMovies,
       moviesPlayNow: moviesPlayNow ?? this.moviesPlayNow,
       moviesUpcoming: moviesUpcoming ?? this.moviesUpcoming,
       moviesPopular: moviesPopular ?? this.moviesPopular,
+      listGenre: listGenre ?? this.listGenre,
     );
   }
 }

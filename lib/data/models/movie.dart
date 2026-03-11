@@ -10,6 +10,8 @@ class Movie {
   @JsonKey(name: "backdrop_path")
   String? backdropPath;
   int? budget;
+  @JsonKey(name: "genre_ids")
+  List<int>? genreIds;
   List<Genre>? genres;
   String? homepage;
   int? id;
@@ -42,6 +44,7 @@ class Movie {
     this.adult,
     this.backdropPath,
     this.budget,
+    this.genreIds,
     this.genres,
     this.homepage,
     this.id,

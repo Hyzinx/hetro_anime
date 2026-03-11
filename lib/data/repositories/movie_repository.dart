@@ -2,6 +2,7 @@ import 'package:hetro_anime/consts/strings.dart';
 import 'package:hetro_anime/data/api/movie_api.dart';
 import 'package:hetro_anime/data/exception_handeler/api_result.dart';
 import 'package:hetro_anime/data/exception_handeler/network_exception.dart';
+import 'package:hetro_anime/data/models/genre.dart';
 import 'package:hetro_anime/data/models/movie.dart';
 import 'package:hetro_anime/data/models/response_result.dart';
 
@@ -76,6 +77,18 @@ class MovieRepository {
       );
       final List<Movie> listMovies = response.results!;
       return ApiResult.success(listMovies);
+    } catch (error) {
+      return ApiResult.failure(NetworkExceptions.getDioException(error));
+    }
+  }
+
+  Future<ApiResult<List<Genre>>> getAllGenreList() async {
+    try {
+      final Map<String, List<Genre>> response = await movieApi.getAllGenreList(
+        "Bearer $apiKey",
+      );
+      final listGenre = response["genres"];
+      return ApiResult.success(listGenre!);
     } catch (error) {
       return ApiResult.failure(NetworkExceptions.getDioException(error));
     }
