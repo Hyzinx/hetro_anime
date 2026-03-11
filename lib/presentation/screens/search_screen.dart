@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hetro_anime/business/cubit/movie_cubit.dart';
 import 'package:hetro_anime/business/states/movie_state.dart';
 import 'package:hetro_anime/consts/my_colors.dart';
@@ -34,7 +35,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      padding: EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         children: [
           SearchWidget(
@@ -45,23 +46,59 @@ class _SearchScreenState extends State<SearchScreen> {
             builder: (context, state) {
               if (state is SearchMovieList) {
                 movies = state.movies;
-                return Expanded(
-                  child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: movies.length,
-                    itemBuilder: (context, index) => GestureDetector(
-                      onTap: () => onTapOnMovie(movies[index].id!),
-                      child: SearchMovieCard(
-                        movie: movies[index],
-                        listGenre: listGenre,
+                if (movies.isNotEmpty) {
+                  return Expanded(
+                    child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemCount: movies.length,
+                      itemBuilder: (context, index) => GestureDetector(
+                        onTap: () => onTapOnMovie(movies[index].id!),
+                        child: SearchMovieCard(
+                          movie: movies[index],
+                          listGenre: listGenre,
+                        ),
                       ),
                     ),
-                  ),
-                );
+                  );
+                } else {
+                  return Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset("assets/images/no-results.png"),
+                        SizedBox(
+                          width: 200,
+                          child: Text(
+                            "we are sorry, we can not find the movie :(",
+                            style: GoogleFonts.montserrat(
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 250,
+                          child: Text(
+                            "Find your movie by Type title, categories, years, etc ",
+                            style: GoogleFonts.montserrat(
+                              fontSize: 13,
+                              color: Colors.grey,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }
               } else if (state is ErrorLoadingData) {
                 return Center(
                   child: Text(
-                    NetworkExceptions.getErrorMessage(state.networkExceptions),
+                    NetworkExceptions.getErrorMessage(
+                      state.networkExceptions,
+                    ),
                   ),
                 );
               } else if (state is LoadingMoviesList) {

@@ -68,7 +68,7 @@ class SearchMovieCard extends StatelessWidget {
                       ),
                       SizedBox(width: 5),
                       Text(
-                        "${movie.voteAverage}",
+                        movie.voteAverage!.toStringAsFixed(1),
                         style: GoogleFonts.poppins(color: MyColors.ratingColors,fontSize: 14),
                       ),
                     ],
